@@ -43,6 +43,11 @@ jobs:
     outputs:
       approved: ${{ steps.check-approval.outputs.approved }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - name: Check if PR needs approval
         id: check-approval
         run: |
@@ -195,6 +200,11 @@ jobs:
     if: needs.security-gate.outputs.approved == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - name: Checkout pull request branch
         uses: actions/checkout@v3
         with:
@@ -246,6 +256,11 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - name: Checkout pull request branch
         uses: actions/checkout@v4
         with:
@@ -307,6 +322,11 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - name: Checkout pull request branch
         uses: actions/checkout@v3
         with:
@@ -371,6 +391,11 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - name: Checkout pull request branch
         uses: actions/checkout@v3
         with:

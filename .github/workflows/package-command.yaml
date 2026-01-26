@@ -27,6 +27,11 @@ jobs:
       is-automated-pr: ${{ steps.checkAutomatedPR.outputs.isAutomatedPR }}
       package-created: ${{ steps.validateAndCreatePackage.outputs.isCreatePackage }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - name: Validate inputs
         run: |
           if [ -z "${{ env.BRANCH_NAME }}" ]; then

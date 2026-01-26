@@ -19,6 +19,11 @@ jobs:
     # check out and run the script
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v1
       
       - name: Check that template version was updated

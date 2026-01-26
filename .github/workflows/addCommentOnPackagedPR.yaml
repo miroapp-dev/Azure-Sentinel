@@ -16,6 +16,11 @@ jobs:
       pull-requests: write
       contents: write
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+      with:
+        egress-policy: audit
+
     - uses: actions/github-script@29423367f079522048aa7c63f671593b0556ffd5
       id: addComment
       with:

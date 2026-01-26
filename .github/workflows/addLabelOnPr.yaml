@@ -16,6 +16,11 @@ jobs:
     if: ${{ !github.event.pull_request.head.repo.fork }}
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
+        with:
+          egress-policy: audit
+
       - name: Generate a token
         id: generate_token
         uses: actions/create-github-app-token@46e4a501e119d39574a54e53a06c9a705efc55c9
