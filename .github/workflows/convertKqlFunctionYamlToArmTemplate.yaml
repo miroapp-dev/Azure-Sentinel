@@ -50,7 +50,7 @@ jobs:
             python-version: '3.x'
             architecture: 'x64'
       - name: Install yamale package
-        uses: step-security/pip-action@v1
+        uses: BSFishy/pip-action@v1
         with:
             packages: |
                 yamale
