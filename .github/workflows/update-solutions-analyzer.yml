@@ -58,7 +58,7 @@ jobs:
       - name: Create Pull Request
         if: steps.check_changes.outputs.changed == 'true'
         id: create_pr
-        uses: peter-evans/create-pull-request@v6
+        uses: step-security/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore: Update Solutions Analyzer CSV files and documentation'
