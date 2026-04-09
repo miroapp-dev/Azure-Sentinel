@@ -91,7 +91,7 @@ jobs:
             repository: ${{github.event.pull_request.head.repo.full_name}}
             branch: ${{ github.head_ref }}
       - name: Add comment
-        uses: mshick/add-pr-comment@v1
+        uses: step-security/add-pr-comment@v2
         if: ${{ env.armTemplatesChanged == 'true' }}
         with:
           message: |
