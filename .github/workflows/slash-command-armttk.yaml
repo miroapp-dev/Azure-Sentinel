@@ -64,7 +64,7 @@ jobs:
             exit 1
           }
 
-      - uses: step-security/docker-build-push-action@v6
+      - uses: docker/build-push-action@v6
         id: publishGithubPackage
         name: Run ARM-TTK
         if: ${{ steps.get-pr.outputs.is_fork == 'false' && success() && steps.step1.outputs.solutionName != '' && (steps.step1.outputs.mainTemplateChanged == 'true' || steps.step1.outputs.createUiChanged == 'true') }}
