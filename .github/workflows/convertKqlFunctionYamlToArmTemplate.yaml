@@ -45,12 +45,12 @@ jobs:
             persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
             fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
       - name: Install python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@3542bca2639a428e1796aaa6a2ffef0c0f575566 # v3.1.4
         with:
             python-version: '3.x'
             architecture: 'x64'
       - name: Install yamale package
-        uses: step-security/pip-action@v1
+        uses: step-security/pip-action@4eec757caa412aae0b24a95bd26e1a2f20805087 # v1.0.0
         with:
             packages: |
                 yamale
@@ -91,7 +91,7 @@ jobs:
             repository: ${{github.event.pull_request.head.repo.full_name}}
             branch: ${{ github.head_ref }}
       - name: Add comment
-        uses: mshick/add-pr-comment@v1
+        uses: step-security/add-pr-comment@v2
         if: ${{ env.armTemplatesChanged == 'true' }}
         with:
           message: |
