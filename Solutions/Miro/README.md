@@ -66,7 +66,7 @@ This is the simplest option for most users. It automatically creates an OAuth ap
 - `contentlogs:export` (Enterprise Guard add-on).
 - `aiinteractionlogs:read` (Enterprise Guard add-on with AI interaction logs).
 
-If the SIEM toggle was enabled before it offered these scopes, turn it off and on again to get a token that includes them, then update the token in every connector that uses it. The eDiscovery toggle remains an alternative for the content logs connector.
+If the SIEM toggle was enabled before it offered these scopes, turn it off and on again to get a token that includes them, then update the token in every connector that uses it. Turning the toggle off invalidates its current token, so every connector that uses it fails to poll until it has the new token. The eDiscovery toggle remains an alternative for the content logs connector.
 
 #### Get the access token and organization ID
 
@@ -215,7 +215,7 @@ Key columns:
 - `model`, `tool`: Model and tool information for invocation events (JSON).
 - `details`: Additional details about the interaction (JSON); the structure varies by event type.
 
-**Note:** The `details` column may contain unstructured data that could reveal information used in interactions with the LLM.
+**Note:** The `details` column may contain unstructured data that could reveal information used in interactions with the LLM. Azure Monitor truncates any field value longer than 64 KB at ingestion ([Logs Ingestion API limits](https://learn.microsoft.com/azure/azure-monitor/fundamentals/service-limits)), so a long `details` value can arrive cut off.
 
 ## Sample queries
 
