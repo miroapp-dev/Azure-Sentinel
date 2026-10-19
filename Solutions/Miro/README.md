@@ -12,7 +12,7 @@ This solution includes three data connectors:
 
 1. **Miro Audit Logs (Enterprise Plan)**: Organization-wide audit events including user authentication, content access, team changes, and administrative actions. [API documentation](https://developers.miro.com/reference/enterprise-get-audit-logs) | [Audit logs overview](https://developers.miro.com/reference/audit-logs).
 2. **Miro Content Logs (Enterprise Plan + Enterprise Guard)**: Content activity tracking including item creation, updates, and deletions for compliance and eDiscovery. [API documentation](https://developers.miro.com/reference/enterprise-board-content-item-logs-fetch) | [Content logs overview](https://developers.miro.com/reference/board-content-logs).
-3. **Miro AI Interaction Logs (Enterprise Plan + Enterprise Guard)**: User interactions with AI features in Miro: the prompt received from the user, the response returned to them, and the model and tool calls made in between. [API documentation](https://developers.miro.com/reference/enterprise-get-ai-interaction-logs) | [AI interaction logs overview](https://help.miro.com/hc/en-us/articles/34049604547858).
+3. **Miro AI Interaction Logs (Beta) (Enterprise Plan + Enterprise Guard)**: User interactions with AI features in Miro: the prompt received from the user, the response returned to them, and the model and tool calls made in between. [API documentation](https://developers.miro.com/reference/enterprise-get-ai-interaction-logs) | [AI interaction logs overview](https://help.miro.com/hc/en-us/articles/34049604547858). This connector is in Beta: the AI interaction logs API may change before general availability.
 
 ## Prerequisites
 
@@ -67,6 +67,8 @@ This is the simplest option for most users. It automatically creates an OAuth ap
 - `aiinteractionlogs:read` (Enterprise Guard add-on with AI interaction logs).
 
 If the SIEM toggle was enabled before it offered these scopes, turn it off and on again to get a token that includes them, then update the token in every connector that uses it. Turning the toggle off invalidates its current token, so every connector that uses it fails to poll until it has the new token. The eDiscovery toggle remains an alternative for the content logs connector.
+
+**Token rotation:** rotate a SIEM token by turning the toggle off and on, or a custom app token (Option 2) by reinstalling the app, then update every connector that uses it. Revoke a token whose scopes you no longer need the same way, by turning the toggle off or uninstalling the app.
 
 #### Get the access token and organization ID
 
@@ -145,7 +147,7 @@ For detailed OAuth setup instructions, see [Getting started with OAuth](https://
 #### Miro AI interaction logs connector
 
 1. In Microsoft Sentinel, go to **Data connectors**.
-2. Find **Miro AI Interaction Logs (Enterprise Plan + Enterprise Guard)** and click **Open connector page**.
+2. Find **Miro AI Interaction Logs (Beta) (Enterprise Plan + Enterprise Guard)** and click **Open connector page**.
 3. Click **Connect**.
 4. Enter your **Organization ID**.
 5. Enter your **Access Token**.
@@ -215,7 +217,7 @@ Key columns:
 - `model`, `tool`: Model and tool information for invocation events (JSON).
 - `details`: Additional details about the interaction (JSON); the structure varies by event type.
 
-**Note:** The `details` column may contain unstructured data that could reveal information used in interactions with the LLM. Azure Monitor truncates any field value longer than 64 KB at ingestion ([Logs Ingestion API limits](https://learn.microsoft.com/azure/azure-monitor/fundamentals/service-limits)), so a long `details` value can arrive cut off.
+**Note:** The `details` column may contain unstructured data that could reveal information used in interactions with the LLM. Azure Monitor truncates any field value longer than 64 KB at ingestion ([Logs Ingestion API limits](https://learn.microsoft.com/azure/azure-monitor/fundamentals/service-limits)), so a long `details` value can arrive cut off. Because the table holds personal data and AI prompts, restrict who can read `MiroAILogs_CL`, for example with [granular RBAC](https://learn.microsoft.com/azure/azure-monitor/logs/granular-rbac-log-analytics), which Microsoft recommends for table-level access control.
 
 ## Sample queries
 
