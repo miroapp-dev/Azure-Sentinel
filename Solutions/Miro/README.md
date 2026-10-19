@@ -217,7 +217,7 @@ Key columns:
 - `model`, `tool`: Model and tool information for invocation events (JSON).
 - `details`: Additional details about the interaction (JSON); the structure varies by event type.
 
-**Note:** The `details` column may contain unstructured data that could reveal information used in interactions with the LLM. Azure Monitor truncates any field value longer than 64 KB at ingestion ([Logs Ingestion API limits](https://learn.microsoft.com/azure/azure-monitor/fundamentals/service-limits)), so a long `details` value can arrive cut off. Because the table holds personal data and AI prompts, restrict who can read `MiroAILogs_CL`, for example with [granular RBAC](https://learn.microsoft.com/azure/azure-monitor/logs/granular-rbac-log-analytics), which Microsoft recommends for table-level access control.
+**Note:** The `details` column may contain unstructured data that could reveal information used in interactions with the LLM. Azure Monitor truncates any field value longer than 64 KB at ingestion ([Logs Ingestion API limits](https://learn.microsoft.com/azure/azure-monitor/fundamentals/service-limits)), so a long `details` value can arrive cut off.
 
 ## Sample queries
 
